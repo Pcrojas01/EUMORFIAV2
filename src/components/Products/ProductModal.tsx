@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, ShoppingCart, Heart, Minus, Plus } from 'lucide-react';
 import { Product } from '../../types';
 import { useCart } from '../../hooks/useCart';
+import { useFavorites } from '../../hooks/useFavorites';
 
 interface ProductModalProps {
   product: Product | null;
@@ -13,8 +14,8 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose })
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const [isLiked, setIsLiked] = useState(false);
   const { addToCart } = useCart();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   React.useEffect(() => {
     if (product) {
@@ -25,6 +26,8 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose })
   }, [product]);
 
   if (!isOpen || !product) return null;
+
+  const isLiked = isFavorite(product.id);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('es-CO', {
@@ -39,6 +42,10 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose })
       addToCart(product, selectedSize, selectedColor);
     }
     onClose();
+  };
+
+  const handleToggleFavorite = () => {
+    toggleFavorite(product);
   };
 
   return (
@@ -178,7 +185,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose })
                 Agregar al Carrito
               </button>
               <button
-                onClick={() => setIsLiked(!isLiked)}
+                onClick={handleToggleFavorite}
                 className={`p-3 border rounded-lg transition-all duration-300 ${
                   isLiked
                     ? 'border-red-500 bg-red-50 text-red-600'
