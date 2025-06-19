@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, ShoppingCart, Menu, X, Heart } from 'lucide-react';
 import { useScrollEffect } from '../../hooks/useScrollEffect';
 import { useCart } from '../../hooks/useCart';
+import { useFavorites } from '../../hooks/useFavorites';
 
 interface HeaderProps {
   onMenuClick: (section: string) => void;
@@ -12,6 +13,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onMenuClick, searchTerm, onSearchChange }) => {
   const isScrolled = useScrollEffect();
   const { getTotalItems, setIsOpen } = useCart();
+  const { getFavoritesCount, setIsOpen: setFavoritesOpen } = useFavorites();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuItems = [
@@ -33,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, searchTerm, onSearchChange
         <nav className="flex items-center justify-between">
           {/* Logo */}
           <div className={`transform transition-all duration-300 ${isScrolled ? 'scale-90' : 'scale-100'}`}>
-            <div className="relative">
+            <div className="relative group">
               <h1 className="text-2xl font-bold bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent animate-pulse">
                 EUMORFIA
               </h1>
@@ -70,8 +72,16 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, searchTerm, onSearchChange
             </div>
 
             {/* Favorites */}
-            <button className="p-2 text-gray-600 hover:text-red-500 transition-colors duration-300">
+            <button 
+              onClick={() => setFavoritesOpen(true)}
+              className="relative p-2 text-gray-600 hover:text-red-500 transition-colors duration-300"
+            >
               <Heart className="w-5 h-5" />
+              {getFavoritesCount() > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center animate-bounce">
+                  {getFavoritesCount()}
+                </span>
+              )}
             </button>
 
             {/* Cart */}

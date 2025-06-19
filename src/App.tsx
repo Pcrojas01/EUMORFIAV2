@@ -7,6 +7,7 @@ import ProductCard from './components/Products/ProductCard';
 import ProductFilters from './components/Products/ProductFilters';
 import ProductModal from './components/Products/ProductModal';
 import ShoppingCart from './components/Cart/ShoppingCart';
+import FavoritesSidebar from './components/Favorites/FavoritesSidebar';
 import { products } from './data/products';
 import { Product, FilterState } from './types';
 import { useScrollAnimation } from './hooks/useScrollEffect';
@@ -189,6 +190,7 @@ function App() {
       />
       
       <ShoppingCart />
+      <FavoritesSidebar />
     </div>
   );
 }

@@ -42,7 +42,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-fade-in-up delay-500">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 animate-fade-in-up delay-500">
             <button
               onClick={onExploreClick}
               className="px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-full hover:from-red-600 hover:to-red-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -55,7 +55,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 max-w-md mx-auto mb-12 animate-fade-in-up delay-700">
+          <div className="grid grid-cols-3 gap-8 max-w-md mx-auto mb-20 animate-fade-in-up delay-700">
             <div className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-red-600 mb-1">50+</div>
               <div className="text-sm text-gray-600">Diseños Únicos</div>
@@ -71,9 +71,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ArrowDown className="w-6 h-6 text-red-500" />
+        {/* Scroll Indicator - Perfectly centered and with proper spacing */}
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="flex flex-col items-center">
+            <ArrowDown className="w-6 h-6 text-red-500" />
+            <div className="w-0.5 h-8 bg-red-300 mt-2"></div>
+          </div>
         </div>
       </div>
     </section>
